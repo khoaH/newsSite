@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8" />
+    <title>Thêm sản phẩm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="{% static 'assets/vendor/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/1.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/font-awesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/admin.css' %}">
+
+</head>
+
+<body>
+    <div class="container" style="margin-top: 50px;">
+
+        <div class="form-sec col-xs-12 col-sm-12 col-md-4 col-lg-4 col-lg-push-4 col-md-push-4"
+            style="width: 100%;position:unset">
+            <h4 class="text-center">Thêm bài viết</h4>
+            <!-- <h4 class="text-center"><img src="${product.anhSP}"/></h4> -->
+            <!-- Sửa bài thì mở ra quá -->
+            <form method="post" action="./add.html" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Tên bài viết:</label>
+                    <input path="tenSP" name="title" type="text" class="form-control" placeholder="Tên bài viết..." />
+                </div>
+                <div class="form-group">
+                    <label>Ảnh tiêu đề:</label>
+                    <input path="anhSP" type="hidden" class="" placeholder="Ảnh tiêu đề..." />
+                    <input type="file" name="img" class="form-control" placeholder="Ảnh tiêu đề..." />
+
+                </div>
+                <div class="form-group">
+                    <label>Danh mục:</label>
+                    <select class="form-control" name="id_category">
+                        {% for cat in categories %}
+                        <option value="{{ cat.id_category }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nội dung bài viết:</label>
+                    <textarea style="height: 200px;" rows="5" path="noiDung" type="text" class="form-control"
+                        placeholder="Nội dung bài viết..." name="content">
+                </textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin:auto;display:block;">Gửi</button>
+            </form>
+        </div>
+
+
+    </div>
+
+    <style type="text/css">
+        .form-sec {
+            background: #ccc;
+            padding: 15px;
+            background: #f8f9fa;
+            padding: 15px;
+            box-shadow: 0 0 4px #ccc;
+        }
+    </style>
+</body>
+
+</html>

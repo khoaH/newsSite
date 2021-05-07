@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="News">
+	<meta name="keywords" content="Specer, unica, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sport News</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&amp;display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'assets/css/font-awesome.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'assets/css/slicknav.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'assets/css/style.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'assets/fonts/themify-icons/themify-icons.css' %}" type="text/css">
+	<script src="https://kit.fontawesome.com/c3bb02edf7.js" crossorigin="anonymous"></script>
+	<!-- Important Owl stylesheet -->
+	<link rel="stylesheet" href="{% static 'assets/fonts/owl/owl-carousel/owl.carousel.css' %}">
+
+	<!-- Default Theme -->
+	<link rel="stylesheet" href="{% static 'assets/fonts/owl/owl-carousel/owl.theme.css' %}">
+
+	<!--  jQuery 1.7+  -->
+	<script src="{% static 'assets/fonts/owl/assets/js/jquery-1.9.1.min.js' %}"></script>
+
+	<!-- Include js plugin -->
+	<script src="{% static 'assets/fonts/owl/owl-carousel/owl.carousel.js' %}"></script>
+</head>
+
+<body>
+	<div id="preloder" style="display: none;">
+		<div class="loader" style="display: none;"></div>
+	</div>
+	<div class="offcanvas-menu-overlay"></div>
+	<div class="offcanvas-menu-wrapper">
+		<div class="canvas-close">
+			<i class="fa fa-close"></i>
+		</div>
+		<div class="search-btn search-switch">
+			<i class="fa fa-search"></i>
+		</div>
+		<div class="header__top--canvas">
+			<div class="ht-info">
+				<ul>
+					<li>20:00 - May 19, 2019</li>
+					<li><a href="./login.html">Sign in</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</div>
+			<div class="ht-links">
+				<a href="#"><i class="fa fa-facebook"></i></a>
+				<a href="#"><i class="fa fa-vimeo"></i></a>
+				<a href="#"><i class="fa fa-twitter"></i></a>
+				<a href="#"><i class="fa fa-google-plus"></i></a>
+				<a href="#"><i class="fa fa-instagram"></i></a>
+			</div>
+		</div>
+		<ul class="main-menu mobile-menu">
+			<li class="active"><a href="./index.html">Home</a></li>
+			<li><a href="./category.html">Football</a></li>
+			<li><a href="./schedule.html">Basketball</a></li>
+			<li><a href="./result.html">Voleyball</a></li>
+			<li><a href="#">Result</a></li>
+			<li><a href="#">Other</a>
+				<ul class="dropdown">
+					<li><a href="./blog.html">Blog</a></li>
+					<li><a href="./blog-details.html">Blog Details</a></li>
+					<li><a href="#">Schedule</a></li>
+					<li><a href="#">Results</a></li>
+				</ul>
+			</li>
+			<li><a href="./contact.html">Contact Us</a></li>
+		</ul>
+		<div id="mobile-menu-wrap">
+
+
+		</div>
+	</div>
+
+	<!--	Header nè-->
+	<header class="header-section">
+		<div class="header__top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="ht-info">
+							<ul>
+								<li>20:00 - May 18, 1999</li>
+								<li><a href="./login.html">Sign in</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="ht-links">
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-vimeo"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-google-plus"></i></a>
+							<a href="#"><i class="fa fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="header__nav">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2">
+						<div class="logo">
+							<a href="./index.html"><img src="{% static 'assets/img/logo.png' %}" alt=""></a>
+						</div>
+					</div>
+					<div class="col-lg-10">
+						<div class="nav-menu">
+							<ul class="main-menu mobile-menu">
+								<li class="active"><a href="./index.html">Home</a></li>
+								<li><a href="./category.html">Football</a></li>
+								<li><a href="./schedule.html">Basketball</a></li>
+								<li><a href="./result.html">Voleyball</a></li>
+								<li><a href="#">Result</a></li>
+								<li><a href="#">Other</a>
+									<ul class="dropdown">
+										<li><a href="./blog.html">Blog</a></li>
+										<li><a href="./blog-details.html">Blog Details</a></li>
+										<li><a href="#">Schedule</a></li>
+										<li><a href="#">Results</a></li>
+									</ul>
+								</li>
+								<li><a href="./contact.html">Contact Us</a></li>
+							</ul>
+							<div class="nm-right search-switch">
+								<i class="fa fa-search"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="canvas-open">
+					<i class="fa fa-bars"></i>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!--	Soccer Feed-->
+	<section class="soccer-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 p-0">
+					<div class="section-title">
+						<h3>Soccer <span>Feed</span></h3>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-sm-6 p-0">
+					<div class="soccer-item set-bg" data-setbg="{{ soccer_feed.0.img }}" style="background-image: url('assets/img/soccer/soccer-1.jpg');">
+						<div class="si-tag">{{ soccer_feed.0.category_name }}</div>
+						<div class="si-text">
+							<h5><a href="./post/{{soccer_feed.0.id_post}}.html">{{ soccer_feed.0.title }}</h5>
+							<ul>
+								<li><i class="ti-calendar"></i> {{ soccer_feed.0.create_time }}</li>
+								<li><i class="ti-write"></i> Rating: {{ soccer_feed.0.rating }} </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 p-0">
+					<div class="soccer-item set-bg" data-setbg="{{ soccer_feed.1.img }}" style="background-image: url('assets/img/soccer/soccer-2.jpg');">
+						<div class="si-tag">{{ soccer_feed.1.category_name }}</div>
+						<div class="si-text">
+							<h5><a href="./post/{{soccer_feed.1.id_post}}.html">{{ soccer_feed.1.title }}</a></h5>
+							<ul>
+								<li><i class="ti-calendar"></i> {{ soccer_feed.1.create_time }}</li>
+								<li><i class="ti-write"></i> Rating: {{ soccer_feed.1.rating }} </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 p-0">
+					<div class="soccer-item set-bg" data-setbg="{{ soccer_feed.2.img }}" style="background-image: url('assets/img/soccer/soccer-3.jpg');">
+						<div class="si-tag">{{ soccer_feed.2.category_name }}</div>
+						<div class="si-text">
+							<h5><a href="./post/{{soccer_feed.2.id_post}}.html">{{ soccer_feed.2.title }}</a></h5>
+							<ul>
+								<li><i class="ti-calendar"></i> {{ soccer_feed.2.create_time }}</li>
+								<li><i class="ti-write"></i> Rating: {{ soccer_feed.2.rating }} </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 p-0">
+					<div class="soccer-item set-bg" data-setbg="{{ soccer_feed.3.img }}" style="background-image: url('assets/img/soccer/soccer-4.jpg');">
+						<div class="si-tag">{{ soccer_feed.3.category_name }}</div>
+						<div class="si-text">
+							<h5><a href="./post/{{soccer_feed.3.id_post}}.html">{{ soccer_feed.3.title }}</a></h5>
+							<ul>
+								<li><i class="ti-calendar"></i> {{ soccer_feed.3.create_time }}</li>
+								<li><i class="ti-write"></i> Rating: {{ soccer_feed.3.rating }} </li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!--	Last news-->
+
+	<section class="latest-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-13">
+					<div class="section-title latest-title">
+						<h3>Latest <span>News</span></h3>
+						<ul>
+							<li>All</li>
+							<li>World Cup</li>
+							<li>Champions</li>
+							<li>MLS</li>
+						</ul>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="news-item left-news">
+								<div class="ni-pic set-bg" data-setbg="{{ lastest_post.0.img }}" style="background-image: url('assets/img/news/latest-b.jpg');">
+									<div class="ni-tag">{{ lastest_post.0.category_name }}</div>
+								</div>
+								<div class="ni-text">
+									<h4><a href="./post/{{lastest_post.0.id_post}}.html">{{ lastest_post.0.title }}</a></h4>
+									<ul>
+										<li><i class="ti-calendar"></i> {{ lastest_post.0.create_time }}</li>
+										<li><i class="ti-write"></i> Rating: {{ lastest_post.0.rating }}</li>
+									</ul>
+									<p>{{ preview }}</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ lastest_post.1.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{lastest_post.1.id_post}}.html">{{ lastest_post.1.title }}</a></h5>
+									<ul>
+										<li><i class="ti-calendar"></i> {{ lastest_post.1.create_time }}</li>
+										<li><i class="ti-write"></i> Rating: {{ lastest_post.1.rating }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ lastest_post.2.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{lastest_post.2.id_post}}.html">{{ lastest_post.2.title }}</a></h5>
+									<ul>
+										<li><i class="ti-calendar"></i> {{ lastest_post.2.create_time }}</li>
+										<li><i class="ti-write"></i> Rating: {{ lastest_post.2.rating }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ lastest_post.3.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{lastest_post.3.id_post}}.html">{{ lastest_post.3.title }}</a></h5>
+									<ul>
+										<li><i class="ti-calendar"></i> {{ lastest_post.3.create_time }}</li>
+										<li><i class="ti-write"></i> Rating: {{ lastest_post.3.rating }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ lastest_post.4.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{lastest_post.3.id_post}}.html">{{ lastest_post.4.title }}</a></h5>
+									<ul>
+										<li><i class="ti-calendar"></i> {{ lastest_post.4.create_time }}</li>
+										<li><i class="ti-write"></i> Rating: {{ lastest_post.4.rating }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!--	Popular-->
+	<section class="popular-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="section-title">
+						<h3>Popular <span>Post</span></h3>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="news-item popular-item set-bg" data-setbg="{{ popular_post.0.img }}" style="background-image: url('assets/img/news/popular-b.jpg');">
+								<div class="ni-tag tenis">{{ popular_post.0.category_name }}</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{popular_post.0.id_post}}.html">{{ popular_post.0.title }}</a></h5>
+									<ul>
+										<li><i class="fa fa-calendar"></i> {{ popular_post.0.create_time }}</li>
+										<li><i class="fa fa-edit"></i> Rating: {{ popular_post.0.rating }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ popular_post.2.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{popular_post.2.id_post}}.html">{{ popular_post.2.title }}</a></h5>
+									<ul>
+										<li><i class="fa fa-calendar"></i> {{ popular_post.2.create_time }}</li>
+										<li><i class="fa fa-edit"></i> Rating: {{ popular_post.2.rating }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ popular_post.4.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{popular_post.4.id_post}}.html">{{ popular_post.4.title }}</a></h5>
+									<ul>
+										<li><i class="fa fa-calendar"></i> {{ popular_post.4.create_time }}</li>
+										<li><i class="fa fa-edit"></i> Rating: {{ popular_post.4.rating }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ popular_post.6.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{popular_post.6.id_post}}.html">{{ popular_post.6.title }}</a></h5>
+									<ul>
+										<li><i class="fa fa-calendar"></i> {{ popular_post.6.create_time }}</li>
+										<li><i class="fa fa-edit"></i> Rating: {{ popular_post.6.rating }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="news-item popular-item set-bg" data-setbg="{{ popular_post.1.img }}" style="background-image: url('assets/img/news/popular-b.jpg');">
+								<div class="ni-tag football">{{ popular_post.1.category_name }}</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{popular_post.1.id_post}}.html">{{ popular_post.1.title }}</a></h5>
+									<ul>
+										<li><i class="fa fa-calendar"></i> {{ popular_post.1.create_time }}</li>
+										<li><i class="fa fa-edit"></i> Rating: {{ popular_post.1.rating }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ popular_post.3.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{popular_post.3.id_post}}.html">{{ popular_post.3.title }}</a></h5>
+									<ul>
+										<li><i class="fa fa-calendar"></i> {{ popular_post.3.create_time }}</li>
+										<li><i class="fa fa-edit"></i> Rating: {{ popular_post.3.rating }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ popular_post.5.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{popular_post.5.id_post}}.html">{{ popular_post.5.title }}</a></h5>
+									<ul>
+										<li><i class="fa fa-calendar"></i> {{ popular_post.5.create_time }}</li>
+										<li><i class="fa fa-edit"></i> Rating: {{ popular_post.5.rating }}</li>
+									</ul>
+								</div>
+							</div>
+							<div class="news-item">
+								<div class="ni-pic">
+									<img src="{{ popular_post.7.img }}" alt="">
+								</div>
+								<div class="ni-text">
+									<h5><a href="./post/{{popular_post.7.id_post}}.html">{{ popular_post.7.title }} </a></h5>
+									<ul>
+										<li><i class="fa fa-calendar"></i> {{ popular_post.7.create_time }}</li>
+										<li><i class="fa fa-edit"></i> Rating: {{ popular_post.7.rating }}</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="section-title">
+						<h3>Follow <span>Us</span></h3>
+					</div>
+					<div class="follow-links">
+						<ul>
+							<li class="facebook">
+								<i class="fa fa-facebook"></i>
+								<div class="fl-name">Facebook</div>
+								<span class="fl-fan">2.530 Fans</span>
+							</li>
+							<li class="twitter">
+								<i class="fa fa-twitter"></i>
+								<div class="fl-name">Twitter</div>
+								<span class="fl-fan">2.046 Fans</span>
+							</li>
+							<li class="google">
+								<i class="fa fa-google"></i>
+								<div class="fl-name">Google</div>
+								<span class="fl-fan">1.170 Fans</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Footer -->
+	<footer class="footer-section set-bg" data-setbg="{% static 'assets/img/footer-bg.jpg' %}" style="background-image: url('assets/img/footer-bg.jpg');">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-6">
+					<div class="fs-logo">
+						<div class="logo">
+							<a href="./index.html"><img src="img/logo.png" alt=""></a>
+						</div>
+						<ul>
+							<li><i class="fa fa-envelope"></i> Info.colorlib@gmail.com</li>
+							<li><i class="fa fa-copy"></i> +(12) 345 6789 10</li>
+							<li><i class="fa fa-thumb-tack"></i> 40 Baria Sreet 133/2 New York City, United State</li>
+						</ul>
+						<div class="fs-social">
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-tumblr"></i></a>
+							<a href="#"><i class="fa fa-linkedin"></i></a>
+							<a href="#"><i class="fa fa-instagram"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="copyright-option">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="co-text">
+							<p>
+								Copyright ©<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+								<script>
+									document.write(new Date().getFullYear());
+								</script>2021 All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+							</p>
+						</div>
+						<div class="co-widget">
+							<ul>
+								<li><a href="#">Copyright notification</a></li>
+								<li><a href="#">Terms of Use</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<div class="search-model" style="display: none;">
+		<div class="h-100 d-flex align-items-center justify-content-center">
+			<div class="search-close-switch"><i class="fa fa-close"></i></div>
+			<form class="search-model-form" action="/test/search.html" method="POST">
+				{% csrf_token %}
+				<input type="text" id="search-input" placeholder="Search here....." name="search">
+			</form>
+		</div>
+	</div>
+	<script src="{% static 'assets/js/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'assets/js/jquery.slicknav.js' %}"></script>
+	<script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'assets/js/main.js' %}"></script>
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-23581568-13');
+	</script>
+</body></html>
