@@ -61,8 +61,20 @@ def search(request):
         if re.search(keyword, item['title']):
             item['preview'] = item['content'].split('\n')[0]
             result.append(item)
-    print(result)
     return render(request, 'search.html', { 'result' : result})
+
+def category(request, id_category):
+    url = 'https://apithaytru.herokuapp.com/post?state=id_category=' + str(id_category) + ',status=1&sort=create_time,desc'
+    r = requests.get(url)
+    category_feed = r.json()
+
+    if len(category_feed) < 1:
+        return render(request, 'notFound.html')
+    else:
+        for i in range(len(category_feed)):
+            category_feed[i]['preview'] = category_feed[i]['content'].split('\n')[0]
+        return render(request, 'category.html', { 'result' : category_feed})
+
 
 def contact(request):
     return render(request, 'contact.html')
@@ -112,7 +124,7 @@ def register(request):
     return render(request, 'register.html')
 
 def post(request, post_id):
-    url_post = 'http://127.0.0.1:5000/post/' + str(post_id)
+    url_post = 'https://apithaytru.herokuapp.com/post/' + str(post_id)
     r = requests.get(url_post)
     if len(r.json()) < 0:
         return render(request, 'page.html', {'content' : 'Bài viết không tồn tại'})
@@ -157,9 +169,8 @@ def addPost(request):
         # print(result.json())
         return HttpResponse('<p>success</p>')
 
+# def editPost(request, post_id):
 
-def category(request):
-    return render(request, 'category.html')
 
 def refresh_authorization(refresh_token):
     # print('refreshing token')

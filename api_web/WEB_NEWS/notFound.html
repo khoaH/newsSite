@@ -61,20 +61,20 @@
 			</div>
 		</div>
 		<ul class="main-menu mobile-menu">
-			<li class="active"><a href="../index.html">Home</a></li>
-			<li><a href="../category.html">Football</a></li>
-			<li><a href="../schedule.html">Basketball</a></li>
-			<li><a href="../result.html">Voleyball</a></li>
+			<li class="active"><a href="./index.html">Home</a></li>
+			<li><a href="./category.html">Football</a></li>
+			<li><a href="./schedule.html">Basketball</a></li>
+			<li><a href="./result.html">Voleyball</a></li>
 			<li><a href="#">Result</a></li>
 			<li><a href="#">Other</a>
 				<ul class="dropdown">
-					<li><a href="../blog.html">Blog</a></li>
-					<li><a href="../blog-details.html">Blog Details</a></li>
+					<li><a href="./blog.html">Blog</a></li>
+					<li><a href="./blog-details.html">Blog Details</a></li>
 					<li><a href="#">Schedule</a></li>
 					<li><a href="#">Results</a></li>
 				</ul>
 			</li>
-			<li><a href="../contact.html">Contact Us</a></li>
+			<li><a href="./contact.html">Contact Us</a></li>
 		</ul>
 		<div id="mobile-menu-wrap">
 			<!--
@@ -133,26 +133,26 @@
 				<div class="row">
 					<div class="col-lg-2">
 						<div class="logo">
-							<a href="../index.html"><img src="{% static 'assets/img/logo.png' %}" alt=""></a>
+							<a href="./index.html"><img src="{% static 'assets/img/logo.png' %}" alt=""></a>
 						</div>
 					</div>
 					<div class="col-lg-10">
 						<div class="nav-menu">
 							<ul class="main-menu mobile-menu">
-								<li class="active"><a href="../index.html">Home</a></li>
-								<li><a href="../category.html">Football</a></li>
-								<li><a href="../schedule.html">Basketball</a></li>
-								<li><a href="../result.html">Voleyball</a></li>
+								<li class="active"><a href="./index.html">Home</a></li>
+								<li><a href="./category.html">Football</a></li>
+								<li><a href="./schedule.html">Basketball</a></li>
+								<li><a href="./result.html">Voleyball</a></li>
 								<li><a href="#">Result</a></li>
 								<li><a href="#">Other</a>
 									<ul class="dropdown">
-										<li><a href="../blog.html">Blog</a></li>
-										<li><a href="../blog-details.html">Blog Details</a></li>
+										<li><a href="./blog.html">Blog</a></li>
+										<li><a href="./blog-details.html">Blog Details</a></li>
 										<li><a href="#">Schedule</a></li>
 										<li><a href="#">Results</a></li>
 									</ul>
 								</li>
-								<li><a href="../contact.html">Contact Us</a></li>
+								<li><a href="./contact.html">Contact Us</a></li>
 							</ul>
 							<div class="nm-right search-switch">
 								<i class="fa fa-search"></i>
@@ -187,24 +187,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 left-blog-pad">
-					<h2>{{ category.name }} </h2>
+					<h2>Không tìm thấy bài viết</h2>
 					<br>
 					<div class="blog-items">
-						{% for post in result %}
-						<div class="single-item">
-							<div class="bi-text">
-								<h4><a href="../post/{{ post.id_post }}.html">{{ post.title }}</a></h4>
-								<ul>
-									<li><i class="fa fa-calendar"></i> {{ post.create_time }}</li>
-									<li><i class="fa fa-edit"></i> Rating: {{ post.rating }}</li>
-								</ul>
-								<p>{{ post.preview }}</p>
-							</div>
-							<div class="bi-pic">
-								<img src="{{ post.img }}" alt="">
-							</div>
-						</div>
-						{% endfor %}
 					</div>
 				</div>
 				<div class="col-lg-4 col-md-6">
@@ -259,7 +244,7 @@
 				<div class="col-lg-3 col-md-6">
 					<div class="fs-logo">
 						<div class="logo">
-							<a href="../index.html"><img src="img/logo.png" alt=""></a>
+							<a href="./index.html"><img src="img/logo.png" alt=""></a>
 						</div>
 						<ul>
 							<li><i class="fa fa-envelope"></i> Info.colorlib@gmail.com</li>
