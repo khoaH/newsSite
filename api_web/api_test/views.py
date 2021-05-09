@@ -72,7 +72,7 @@ def login(request):
         value = request.COOKIES.get('Authorization')
         response = render(request, 'login.html')
         index_response = redirect('/test/index.html')
-        logged_in_url = 'http://127.0.0.1:5000/index'
+        logged_in_url = 'https://apithaytru.herokuapp.com/index'
         if value != None:
             bearer = 'Bearer ' + value
             headers = {'Authorization' : bearer}
@@ -93,7 +93,7 @@ def login(request):
                     return index_response
         return response
     else:
-        sign_in_url = 'http://127.0.0.1:5000/login'
+        sign_in_url = 'https://apithaytru.herokuapp.com/login'
         headers = {'email' : request.POST.get('email', False), 'password' : request.POST.get('password', False)}
         r = requests.get(sign_in_url, headers=headers)
         try:
@@ -112,7 +112,7 @@ def register(request):
     return render(request, 'register.html')
 
 def post(request, post_id):
-    url_post = 'http://127.0.0.1:5000/post/' + str(post_id)
+    url_post = 'https://apisimpleappp.herokuapp.com/post/' + str(post_id)
     r = requests.get(url_post)
     if len(r.json()) < 0:
         return render(request, 'page.html', {'content' : 'Bài viết không tồn tại'})
@@ -163,7 +163,7 @@ def category(request):
 
 def refresh_authorization(refresh_token):
     # print('refreshing token')
-    refresh_url = 'http://127.0.0.1:5000/refresh'
+    refresh_url = 'https://apithaytru.herokuapp.com/refresh'
     refresh_bearer = 'Bearer ' + refresh_token
     # print('Refresh bearer: ' + refresh_bearer)
     refresh_header = {'Authorization' : refresh_bearer}
