@@ -1,6 +1,8 @@
 # newsSite
  
-	Install requirement: pip install -r requirements.txt
+	Install requirement: 
+	cd api_web
+	pip install -r requirements.txt
 
 # API server: 
 	https://github.com/banhcamvinh/api
