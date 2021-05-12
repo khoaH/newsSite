@@ -347,30 +347,32 @@
 							<table class="table table-hover my-0">
 								<thead>
 									<tr>
-										<th>Tên</th>
-										<th class="d-none d-xl-table-cell">Ngày đăng</th>
-										<th>Trạng thái</th>
-										<th class="d-none d-md-table-cell">Người đăng</th>
+										<th>ID</th>
+										<th class="d-none d-xl-table-cell">Tên danh mục</th>
+										<th>Level</th>
+										<th class="d-none d-md-table-cell">Danh mục cha</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									{% for post in posts %}
+									{% for category in categories %}
 									<tr>
-										<td><a href="./post/{{ post.id_post }}.html">{{ post.title }}</a></td>
-										<td class="d-none d-xl-table-cell">{{ post.create_time }}</td>
+										<td><a href="./category/{{ category.id_category }}.html">{{ category.id_category }}</a></td>
+										<td class="d-none d-xl-table-cell">{{ category.name }}</td>
 										<td>
-											{% if post.status == 1 %}<span class="badge bg-success">Done</span>{% endif
-											%}
-											{% if post.status == 0 %}<span class="badge bg-warning">Wait</span>{% endif
-											%}
+											{% for category1 in categories %}
+												{% if category.id_parent != null and category1.id_category == category.id_parent %}<span class="badge bg-success">{{ category.name }}</span>{% endif
+												%}
+												{% if category.id_parent == null %}<span class="badge bg-warning">Danh mục cha</span>{% endif
+												%}
+											{% endfor %}
 										</td>
-										<td class="d-none d-md-table-cell">{{ post.create_by }}</td>
+										<td class="d-none d-md-table-cell">{{ category.id_parent }}</td>
 										<td>
-											<a href="./editPost/{{ post.id_post }}.html" class="settings"
+											<a href="./editCategory/{{ category.id_category }}.html" class="settings"
 												title="Settings" data-toggle="tooltip"><i
 													class="material-icons">&#xE8B8;</i></a>
-											<a href="./deletePost/{{ post.id_post }}.html" class="delete" title="Delete"
+											<a href="./deleteCategory/{{ category.id_category }}.html" class="delete" title="Delete"
 												data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
 										</td>
 									</tr>
