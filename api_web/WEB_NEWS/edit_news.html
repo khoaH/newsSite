@@ -24,11 +24,11 @@
             <h4 class="text-center">Thêm bài viết</h4>
             <!-- <h4 class="text-center"><img src="${product.anhSP}"/></h4> -->
             <!-- Sửa bài thì mở ra quá -->
-            <form method="post" action="./addPost.html" enctype="multipart/form-data">
+            <form method="post" action="" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                     <label>Tên bài viết:</label>
-                    <input path="tenSP" name="title" type="text" class="form-control" placeholder="Tên bài viết..." />
+                    <input path="tenSP" name="title" type="text" class="form-control" placeholder="Tên bài viết..." value="{{ post.title }}" />
                 </div>
                 <div class="form-group">
                     <label>Ảnh tiêu đề:</label>
@@ -40,15 +40,20 @@
                     <label>Danh mục:</label>
                     <select class="form-control" name="id_category">
                         {% for cat in categories %}
-                        <option value="{{ cat.id_category }}">{{ cat.name }}</option>
+                            {% if cat.id_category == post.id_category %}
+                            <option value="{{ cat.id_category }}" selected>{{ cat.name }}</option>
+                            {% endif %}
+                            {% if cat.id_category != post.id_category %}
+                            <option value="{{ cat.id_category }}">{{ cat.name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Nội dung bài viết:</label>
                     <textarea style="height: 200px;" rows="5" path="noiDung" type="text" class="form-control"
-                        placeholder="Nội dung bài viết..." name="content">
-                </textarea>
+                        placeholder="Nội dung bài viết..." name="content">{{ post.content }}
+                    </textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="margin:auto;display:block;">Gửi</button>
             </form>
