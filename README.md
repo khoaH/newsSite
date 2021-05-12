@@ -8,5 +8,8 @@
 	https://github.com/banhcamvinh/api
 
 # Run:
-	API SERVER: python app.py
-	WEB SERVER: python manage.py runserver
+	API SERVER: 
+		python app.py
+	WEB SERVER: 
+		cd api_web
+		python manage.py runserver
