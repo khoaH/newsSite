@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,11 +11,11 @@
 		content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
 
 	<title>Page Post | Admin</title>
 
-	<link href="./assets/css/app.css" rel="stylesheet">
+	<link href="{% static './assets/css/app.css' %}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
@@ -25,7 +25,7 @@
 		<nav id="sidebar" class="sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="admin.html">
-					<span class="align-middle">Admin/span>
+					<span class="align-middle">Admin</span>
 				</a>
 
 				<ul class="sidebar-nav">
@@ -246,7 +246,7 @@
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
 								data-bs-toggle="dropdown">
 								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
-									alt="Admin" /> <span class="text-dark">Admin</span>
+									alt="Admin" /> <span class="text-dark">{{ user_info.username }}</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
@@ -335,7 +335,7 @@
 							<div class="card-header">
 
 								<h5 class="card-title mb-0">Bài viết</h5>
-								<a href="#" class="btn btn-secondary" style="float: right;margin-left: 10px;"><i class="material-icons">&#xE147;</i> <span>Thêm bài viết</span></a>
+								<a href="./addPost.html" class="btn btn-secondary" style="float: right;margin-left: 10px;"><i class="material-icons">&#xE147;</i> <span>Thêm bài viết</span></a>
 								<a href="#" class="btn btn-secondary" style="float: right;"><i class="material-icons">&#xE147;</i> <span>Xem chế độ chi tiết</span></a>
 							</div>
 							<table class="table table-hover my-0">
@@ -349,17 +349,22 @@
 									</tr>
 								</thead>
 								<tbody>
+									{% for post in posts %}
 									<tr>
-										<td><a href="">Project Apollo</a></td>
-										<td class="d-none d-xl-table-cell">01/01/2021</td>
-										<td><span class="badge bg-success">Done</span></td>
-										<td class="d-none d-md-table-cell">Vanessa Tucker</td>
+										<td><a href="./post/{{ post.id_post }}.html">{{ post.title }}</a></td>
+										<td class="d-none d-xl-table-cell">{{ post.create_time }}</td>
 										<td>
-											<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-											<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+											{% if post.status == 1 %}<span class="badge bg-success">Done</span>{% endif %}
+											{% if post.status == 0 %}<span class="badge bg-warning">Wait</span>{% endif %}
+										</td>
+										<td class="d-none d-md-table-cell">{{ post.create_by }}</td>
+										<td>
+											<a href="./editPost/{{ post.id_post }}.html" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+											<a href="./deletePost/{{ post.id_post }}.html" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
 										</td>
 									</tr>
-									<tr>
+									{% endfor %}
+									<!-- <tr>
 										<td>Project Fireball</td>
 										<td class="d-none d-xl-table-cell">01/01/2021</td>
 										<td><span class="badge bg-danger">Cancelled</span></td>
@@ -377,7 +382,7 @@
 										<td>
 											<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
 											<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-										</td>
+										</td> -->
 									</tr>
 								</tbody>
 							</table>
@@ -387,7 +392,7 @@
 		</div>
 	</div>
 
-	<script src="./assets/js/app.js"></script>
+	<script src="{% static './assets/js/app.js' %}"></script>
 
 </body>
 
