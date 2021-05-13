@@ -7,15 +7,6 @@ import os
 import requests, json
 from flask import jsonify
 
-
-# def index(request):
-#     url = 'https://apisimpleapp.herokuapp.com/post/1'
-#     r = requests.get(url)
-#     data = r.json()
-#     print(data)
-#     # return HttpResponse("Title is " + data[0]['title'])
-#     return HttpResponse(data)
-
 def admin(request):
     value = request.COOKIES.get('Authorization')
     response = redirect('/test/login.html')
@@ -70,36 +61,6 @@ def newsController(request):
         return response
     else:
         return extra
-    # value = request.COOKIES.get('Authorization')
-    # response = redirect('/test/login.html')
-    # logged_in_url = 'https://apithaytru.herokuapp.com/login'
-    # if value != None:
-    #     bearer = 'Bearer ' + value
-    #     headers = {'Authorization' : bearer}
-    #     r = requests.get(logged_in_url, headers=headers)
-    #     if r.status_code == 200:
-    #         result = r.json()
-    #         result.pop('status')
-    #         dashboard_response = render(request, 'pages-post.html', {'user_info' : result})
-    #         # dashboard_response.set_cookie('user_info', result)
-    #         return dashboard_response
-    # refresh_token = request.COOKIES.get('refresh_token')
-    # if(refresh_token != None):
-    #     new_authorization = refresh_authorization(refresh_token)
-    #     if 'access_token' in new_authorization:
-    #         new_bearer = 'Bearer ' + new_authorization['access_token']
-    #         new_headers = {'Authorization' : new_bearer}
-    #         r = requests.get(logged_in_url, headers=new_headers)
-    #         if r.status_code == 200:
-    #             result = r.json()
-    #             result.pop('status')
-    #             dashboard_response = render(request, 'pages-post.html', {'user_info' : result})
-    #             # dashboard_response.set_cookie('user_info', result)
-    #             dashboard_response.set_cookie('Authorization', new_authorization['access_token'], max_age=1800)
-    #             return dashboard_response
-    # response.delete_cookie('Authorization')
-    # response.delete_cookie('refresh_token')
-    # return response
 
 def index(request):
 
@@ -349,47 +310,47 @@ def editPost(request, post_id):
         else:
             return extra
     else:
-        title = request.POST.get('title', True)
-        content = request.POST.get('content', True)
-        id_category = request.POST.get('id_category', True)
-        imgstr_decoded = ''
-        try :
-            img = request.FILES.get('img', True)
-            imgStream = img.read()
-            imgstr = base64.b64encode(imgStream)
-            imgstr_decoded = imgstr.decode('ascii')
-        except:
-            url_post = 'https://apithaytru.herokuapp.com/post/' + str(post_id)
-            post_response = requests.get(url_post)
-            post_data = post_response.json()
-            post_data = post_data[0]
-            img_link = post_data['img']
-            r = requests.get(img_link)
-            imgStream = r.content
-            imgstr = base64.b64encode(imgStream)
-            imgstr_decoded = imgstr.decode('ascii')
+        status, user_info, extra = checkCookie(request)
+        if status:
+            title = request.POST.get('title', True)
+            content = request.POST.get('content', True)
+            id_category = request.POST.get('id_category', True)
+            imgstr_decoded = ''
+            try :
+                img = request.FILES.get('img', True)
+                imgStream = img.read()
+                imgstr = base64.b64encode(imgStream)
+                imgstr_decoded = imgstr.decode('ascii')
+            except:
+                url_post = 'https://apithaytru.herokuapp.com/post/' + str(post_id)
+                post_response = requests.get(url_post)
+                post_data = post_response.json()
+                post_data = post_data[0]
+                img_link = post_data['img']
+                r = requests.get(img_link)
+                imgStream = r.content
+                imgstr = base64.b64encode(imgStream)
+                imgstr_decoded = imgstr.decode('ascii')
 
+            # newImgStream = base64.b64decode(imgstr)
+            # with open('newfile.txt', 'w') as destination:
+            #     destination.write(imgstr_decoded)
+            #     destination.close()
 
-        # newImgStream = base64.b64decode(imgstr)
-        # with open('newfile.txt', 'w') as destination:
-        #     destination.write(imgstr_decoded)
-        #     destination.close()
-
-        url_editPost = 'http://127.0.0.1:5000/post/edit/' + str(post_id)
-        data = {"title" : title, "content" : content, "category" : id_category, "img" : imgstr_decoded}
-        if extra != None:
-            token = extra
+            url_editPost = 'http://127.0.0.1:5000/post/edit/' + str(post_id)
+            data = {"title" : title, "content" : content, "category" : id_category, "img" : imgstr_decoded}
+            if extra != None:
+                token = extra
+            else:
+                token = request.COOKIES.get('Authorization')
+            bearer = 'Bearer ' + token
+            headers = {'Authorization' : bearer}
+            data_json = json.dumps(data)
+            result = requests.post(url_editPost, json=data_json, headers=headers)
+            print(result.status_code)
+            return redirect('/test/pages-post.html')
         else:
-            token = request.COOKIES.get('Authorization')
-        bearer = 'Bearer ' + token
-        headers = {'Authorization' : bearer}
-        data_json = json.dumps(data)
-        result = requests.post(url_editPost, json=data_json, headers=headers)
-        # print(data_json)
-        # print(type(data_json))
-        # print(type(data))
-        print(result.status_code)
-        return redirect('/test/pages-post.html')
+            return extra
 
 def deletePost(request, post_id):
     status, user_info, extra = checkCookie(request)
@@ -436,6 +397,158 @@ def userController(request):
         return response
     else:
         return extra
+
+def addUser(request):
+    if request.method == 'GET':
+        status, user_info, extra = checkCookie(request)
+        if status:
+            if user_info['role'] == 1:
+                response =  render(request, 'pages-sign-up.html')
+                if extra != None:
+                    response.set_cookie('Authorization', extra, max_age=1800)
+                return response
+            else:
+                return redirect('/test/pages-users.html')
+        else:
+            return extra
+    else:
+        status, user_info, extra = checkCookie(request)
+        if status:
+            password = str(request.POST.get('password', False)).strip()
+            email = str(request.POST.get('email', False)).strip()
+            username = str(request.POST.get('username', False)).strip()
+            role = str(0)
+            if password == '':
+                return render(request, 'pages-sign-up.html', {'error' : 'Password is empty'})
+            elif email == '':
+                return render(request, 'pages-sign-up.html', {'error' : 'Email is empty'})   
+            elif username == '':
+                return render(request, 'pages-sign-up.html', {'error' : 'Username is empty'})                   
+            else:
+                url_addUser = 'https://apithaytru.herokuapp.com/account/add'
+                data = {"email" : email, "username" : username, "password" : password, 'role' : role}
+                if extra != None:
+                    token = extra
+                else:
+                    token = request.COOKIES.get('Authorization')
+                bearer = 'Bearer ' + token
+                headers = {'Authorization' : bearer}
+                data_json = json.dumps(data)
+                r = requests.post(url_addUser, json=data_json, headers=headers)
+                result = r.json()
+
+                if(result['status'] == 4):
+                    return render(request, 'pages-sign-up.html', {'error' : 'Email existed'})
+                elif(result['status'] != 7):
+                    return render(request, 'pages-sign-up.html', {'error' : 'Something went wrong, status code=' + str(result['status'])})
+                else:
+                    return render(request, 'pages-sign-up.html', {'error' : 'Success'})
+        else:
+            return extra
+
+
+def editUser(request, account_id):
+    if request.method == 'GET':
+        status, user_info, extra = checkCookie(request)
+        if status:
+            if user_info['role'] == 1:
+                url_acccount = 'https://apithaytru.herokuapp.com/account/' + str(account_id)
+                token = ''
+                if extra != None:
+                    token = extra
+                else:
+                    token = request.COOKIES.get('Authorization')
+                bearer = 'Bearer ' + token
+                headers = {'Authorization' : bearer}
+                r = requests.get(url_acccount, headers=headers)
+                account_data = r.json()
+                if len(account_data) > 0:
+                    account_data = account_data[0]
+                response =  render(request, 'pages-edit-user.html', { 'account' : account_data })
+                if extra != None:
+                    response.set_cookie('Authorization', extra, max_age=1800)
+                return response
+            else:
+                return redirect('/test/pages-users.html')
+        else:
+            return extra
+    else:
+        status, user_info, extra = checkCookie(request)
+        if status:
+            url_acccount = 'https://apithaytru.herokuapp.com/account/' + str(account_id)
+            token = ''
+            if extra != None:
+                token = extra
+            else:
+                token = request.COOKIES.get('Authorization')
+            bearer = 'Bearer ' + token
+            headers = {'Authorization' : bearer}
+            r = requests.get(url_acccount, headers=headers)
+            account_data = r.json()
+
+            password = str(request.POST.get('password', False)).strip()
+            email = str(account_data[0]['email']).strip()
+            username = str(request.POST.get('username', False)).strip()
+            role = str(0)
+            if password == '':
+                return render(request, 'pages-edit-user.html', {'error' : 'Password is empty'})
+            elif email == '':
+                return render(request, 'pages-edit-user.html', {'error' : 'Email is empty'})   
+            elif username == '':
+                return render(request, 'pages-edit-user.html', {'error' : 'Username is empty'})                   
+            else:
+                url_editUser = 'https://apithaytru.herokuapp.com/account/edit/' + str(account_id)
+                data = {"email" : email, "username" : username, "password" : password, 'role' : role}
+                print(data)
+                if extra != None:
+                    token = extra
+                else:
+                    token = request.COOKIES.get('Authorization')
+                bearer = 'Bearer ' + token
+                headers = {'Authorization' : bearer}
+                data_json = json.dumps(data)
+                r = requests.post(url_editUser, json=data_json, headers=headers)
+                result = r.json()
+
+                if(result['status'] == 4):
+                    return render(request, 'pages-edit-user.html', {'error' : 'Email existed'})
+                elif(result['status'] != 8):
+                    return render(request, 'pages-edit-user.html', {'error' : 'Something went wrong, status code=' + str(result['status'])})
+                else:
+                    return render(request, 'pages-edit-user.html', {'error' : 'Success'})
+        else:
+            return extra
+
+def deleteUser(request, account_id):
+    status, user_info, extra = checkCookie(request)
+    if status:
+        url_delPost = 'http://127.0.0.1:5000/account/del/' + str(account_id)
+        if extra != None:
+            token = extra
+        else:
+            token = request.COOKIES.get('Authorization')
+        bearer = 'Bearer ' + token
+        headers = {'Authorization' : bearer}
+        r = requests.post(url_delPost, headers=headers)
+        print(r.status_code)
+        response =  redirect('/test/pages-users.html')
+        if extra != None:
+            response.set_cookie('Authorization', extra, max_age=1800)
+        return response
+    else:
+        return extra
+
+def categoryController(request):
+    return render(request, 'pages-category.html')
+
+def addCategory(request):
+    return render(request, 'pages-add-category.html')
+
+def editCategory(request, category_id):
+    return render(request, 'pages-add-category.html')
+
+def deleteCategory(request, category_id):
+    return redirect('/test/pages-category.html')
 
 
 def checkCookie(request):

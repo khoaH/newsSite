@@ -397,7 +397,7 @@
 							<div class="card-header">
 								<h2 style="font-size:1.5rem;" class="card-title">Danh sách thành viên</h2>
 
-								<a href="#" class="btn btn-secondary" style="float: right;"><i
+								<a href="./addUser.html" class="btn btn-secondary" style="float: right;"><i
 										class="material-icons">&#xE147;</i> <span>Add New User</span></a>
 							</div>
 							<table class="table table-hover my-0">
@@ -423,9 +423,9 @@
 										<td class="d-none d-md-table-cell">Author</td>
 										{% endif %}
 										<td>
-											<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
+											<a href="./editUser/{{ user.id_account }}.html" class="settings" title="Settings" data-toggle="tooltip"><i
 													class="material-icons">&#xE8B8;</i></a>
-											<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+											<a href="./deleteUser/{{ user.id_account }}.html" class="delete" title="Delete" data-toggle="tooltip"><i
 													class="material-icons">&#xE5C9;</i></a>
 										</td>
 									</tr>

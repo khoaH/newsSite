@@ -361,10 +361,12 @@
 										<td class="d-none d-xl-table-cell">{{ category.name }}</td>
 										<td>
 											{% for category1 in categories %}
-												{% if category.id_parent != null and category1.id_category == category.id_parent %}<span class="badge bg-success">{{ category.name }}</span>{% endif
-												%}
-												{% if category.id_parent == null %}<span class="badge bg-warning">Danh mục cha</span>{% endif
-												%}
+												{% if category.id_parent != null and category1.id_category == category.id_parent %}
+													<span class="badge bg-success">{{ category.name }}</span>
+												{% endif %}
+												{% if category.id_parent == null %}
+													<span class="badge bg-warning">Danh mục cha</span>
+													{% endif %}
 											{% endfor %}
 										</td>
 										<td class="d-none d-md-table-cell">{{ category.id_parent }}</td>
