@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,16 +47,16 @@
 						</a>
 					</li>
 
-					
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-category.html">
-							<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Categories</span>
-						</a>
-					</li>
 
 
 					<li class="sidebar-item active">
+						<a class="sidebar-link" href="pages-category.html">
+							<i class="align-middle" data-feather="credit-card"></i> <span
+								class="align-middle">Categories</span>
+						</a>
+					</li>
+
+					<li class="sidebar-item ">
 						<a class="sidebar-link" href="pages-post.html">
 							<i class="align-middle" data-feather="book"></i> <span class="align-middle">Post</span>
 						</a>
@@ -71,7 +72,7 @@
 						</ul>
 					</li>
 
-					
+
 			</div>
 		</nav>
 
@@ -246,12 +247,13 @@
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
 								data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
-									alt="Admin" /> <span class="text-dark">{{ user_info.username }}</span>
+								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Admin" />
+								<span class="text-dark">{{ user_info.username }}</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
 								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"
-										data-feather="user"></i> 					<!-- <li class="sidebar-header">
+										data-feather="user"></i>
+									<!-- <li class="sidebar-header">
 						Tools & Components
 					</li>
 					<li class="sidebar-item">
@@ -313,7 +315,7 @@
 						</div>
 					</div>
 				</div> -->
-			</a>
+								</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1"
 										data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
@@ -336,32 +338,42 @@
 							<div class="card-header">
 
 								<h5 class="card-title mb-0">Bài viết</h5>
-								<a href="./addPost.html" class="btn btn-secondary" style="float: right;margin-left: 10px;"><i class="material-icons">&#xE147;</i> <span>Thêm bài viết</span></a>
-								<a href="#" class="btn btn-secondary" style="float: right;"><i class="material-icons">&#xE147;</i> <span>Xem chế độ chi tiết</span></a>
+								<a href="./addPost.html" class="btn btn-secondary"
+									style="float: right;margin-left: 10px;"><i class="material-icons">&#xE147;</i>
+									<span>Thêm bài viết</span></a>
+								<a href="#" class="btn btn-secondary" style="float: right;"><i
+										class="material-icons">&#xE147;</i> <span>Xem chế độ chi tiết</span></a>
 							</div>
 							<table class="table table-hover my-0">
 								<thead>
 									<tr>
-										<th>Tên</th>
-										<th class="d-none d-xl-table-cell">Ngày đăng</th>
-										<th>Trạng thái</th>
-										<th class="d-none d-md-table-cell">Người đăng</th>
+										<th>ID</th>
+										<th class="d-none d-xl-table-cell">Tên danh mục</th>
+										<th>Level</th>
+										<th class="d-none d-md-table-cell">Danh mục cha</th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									{% for post in posts %}
+									{% for category in categories %}
 									<tr>
-										<td><a href="./post/{{ post.id_post }}.html">{{ post.title }}</a></td>
-										<td class="d-none d-xl-table-cell">{{ post.create_time }}</td>
+										<td><a href="./category/{{ category.id_category }}.html">{{ category.id_category }}</a></td>
+										<td class="d-none d-xl-table-cell">{{ category.name }}</td>
 										<td>
-											{% if post.status == 1 %}<span class="badge bg-success">Done</span>{% endif %}
-											{% if post.status == 0 %}<span class="badge bg-warning">Wait</span>{% endif %}
+											{% for category1 in categories %}
+												{% if category.id_parent != null and category1.id_category == category.id_parent %}<span class="badge bg-success">{{ category.name }}</span>{% endif
+												%}
+												{% if category.id_parent == null %}<span class="badge bg-warning">Danh mục cha</span>{% endif
+												%}
+											{% endfor %}
 										</td>
-										<td class="d-none d-md-table-cell">{{ post.create_by }}</td>
+										<td class="d-none d-md-table-cell">{{ category.id_parent }}</td>
 										<td>
-											<a href="./editPost/{{ post.id_post }}.html" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-											<a href="./deletePost/{{ post.id_post }}.html" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+											<a href="./editCategory/{{ category.id_category }}.html" class="settings"
+												title="Settings" data-toggle="tooltip"><i
+													class="material-icons">&#xE8B8;</i></a>
+											<a href="./deleteCategory/{{ category.id_category }}.html" class="delete" title="Delete"
+												data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
 										</td>
 									</tr>
 									{% endfor %}

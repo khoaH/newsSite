@@ -10,15 +10,16 @@
 	<link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
 
 	<title>User | Admin</title>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link href="{% static './assets/css/app.css' %}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<style>
+		table.table td a.delete {
+			color: #F44336;
+		}
+	</style>
 </head>
-<style>
-	table.table td a.delete {
-		color: #F44336;
-	}
-</style>
+
 
 <body>
 	<div class="wrapper">
@@ -45,11 +46,12 @@
 							<i class="align-middle" data-feather="user"></i> <span class="align-middle">Users</span>
 						</a>
 					</li>
-						<!--
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-invoice.html">
-              <i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Invoice</span>
-            </a> -->
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="pages-category.html">
+								<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Categories</span>
+							</a>
+						</li>
+
 
 
 					<li class="sidebar-item">
