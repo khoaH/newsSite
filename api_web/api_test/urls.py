@@ -15,6 +15,7 @@ urlpatterns = [
         path('pages-category.html', views.categoryController, name='categoryController'),
         path('page.html', views.page, name='page'),
         path('post/<int:post_id>.html', views.post, name='post'),
+        path('approve/<int:post_id>.html', views.aprrove, name='aprrove'),
         path('register.html', views.register, name='register'),
         path('search.html', views.search, name='search'),
         path('addPost.html',views.addPost, name='addPost'),

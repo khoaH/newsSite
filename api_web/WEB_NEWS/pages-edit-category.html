@@ -36,14 +36,21 @@
 										{% csrf_token %}
 										<div class="mb-3">
 											<label class="form-label">Tên Danh mục</label>
-											<input class="form-control form-control-lg" type="text" name="name" placeholder="Enter category name" />
+											<input class="form-control form-control-lg" type="text" name="name" placeholder="Enter category name" value="{{ category_data.name }}" />
 										</div>
 										<div class="mb-3">
 											<label class="form-label">Danh mục cha</label>
 											<select class="form-control mb-3" name="parent">
 												<option value="null">Không</option>
 												{% for category in categories %}
-													<option value="{{ category.id_category }}"> {{ category.name }} </option>
+													{% if category.id_category == category_data.id_parent %}
+													<option value="{{ category.id_category }}" selected>{{ category.name }}</option>
+													{% endif %}
+													{% if category.id_category != category_data.id_parent %}
+													<option value="{{ category.id_category }}" >{{ category.name }}</option>
+													{% endif %}
+					
+													<!-- <option value="{{ category.id_category }}"> {{ category.name }} </option> -->
 												{% endfor %}
 												<!-- <option selected="">Open this select menu</option>
 												<option>One</option>

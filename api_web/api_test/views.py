@@ -446,7 +446,6 @@ def addUser(request):
         else:
             return extra
 
-
 def editUser(request, account_id):
     if request.method == 'GET':
         status, user_info, extra = checkCookie(request)
@@ -539,16 +538,177 @@ def deleteUser(request, account_id):
         return extra
 
 def categoryController(request):
-    return render(request, 'pages-category.html')
+    status, user_info, extra = checkCookie(request)
+    if status:
+        print(user_info)
+        result = None
+        if user_info['role'] == 1:
+            url = 'https://apithaytru.herokuapp.com/category'
+            r = requests.get(url)
+            result = r.json()
+        else:
+            result = []
+        # print(result)
+        response = render(request, 'pages-category.html', {'user_info' : user_info, 'categories' : result})
+
+        if extra != None:
+            response.set_cookie('Authorization', extra, max_age=1800)
+        return response
+    else:
+        return extra
+    # return render(request, 'pages-category.html')
 
 def addCategory(request):
-    return render(request, 'pages-add-category.html')
+    if request.method == 'GET':
+        status, user_info, extra = checkCookie(request)
+        if status:
+            if user_info['role'] == 1:
+                url = 'https://apithaytru.herokuapp.com/category'
+                r = requests.get(url)
+                result = r.json()
+                response =  render(request, 'pages-add-category.html', {'categories' : result })
+                if extra != None:
+                    response.set_cookie('Authorization', extra, max_age=1800)
+                return response
+            else:
+                return redirect('/test/pages-category.html')
+        else:
+            return extra
+    else:
+        status, user_info, extra = checkCookie(request)
+        if status:
+            name = str(request.POST.get('name', False)).strip()
+            parentId = str(request.POST.get('parent', False)).strip()
+            if name == '':
+                return render(request, 'pages-add-category.html', {'error' : 'Category is empty'})
+            else:
+                url_addCategory = 'https://apithaytru.herokuapp.com/category/add'
+                data = {'category_name' : name, 'id_parent' : parentId }
+                if extra != None:
+                    token = extra
+                else:
+                    token = request.COOKIES.get('Authorization')
+                bearer = 'Bearer ' + token
+                headers = {'Authorization' : bearer}
+                data_json = json.dumps(data)
+                print(data_json)
+                r = requests.post(url_addCategory, json=data_json, headers=headers)
+                print(r.status_code)
+                result = r.json()
+
+                # if(result['status'] == 4):
+                #     return render(request, 'pages-add-category.html', {'error' : 'Email existed'})
+                if(result['status'] != 6):
+                    return render(request, 'pages-add-category.html', {'error' : 'Something went wrong, status code=' + str(result['status'])})
+                else:
+                    return render(request, 'pages-add-category.html', {'error' : 'Success'})
+        else:
+            return extra
+
+    # return render(request, 'pages-add-category.html')
 
 def editCategory(request, category_id):
-    return render(request, 'pages-add-category.html')
+    if request.method == 'GET':
+        status, user_info, extra = checkCookie(request)
+        if status:
+            if user_info['role'] == 1:
+                url_acccount = 'https://apithaytru.herokuapp.com/category/' + str(category_id)
+                url = 'https://apithaytru.herokuapp.com/category'
+                r = requests.get(url)
+                result = r.json()
+
+                token = ''
+                if extra != None:
+                    token = extra
+                else:
+                    token = request.COOKIES.get('Authorization')
+                bearer = 'Bearer ' + token
+                headers = {'Authorization' : bearer}
+                r = requests.get(url_acccount, headers=headers)
+                category_data = r.json()
+                if len(category_data) > 0:
+                    category_data = category_data[0]
+                response =  render(request, 'pages-edit-category.html', { 'category_data' : category_data, 'categories' : result })
+                if extra != None:
+                    response.set_cookie('Authorization', extra, max_age=1800)
+                return response
+            else:
+                return redirect('/test/pages-users.html')
+        else:
+            return extra
+    else:
+        status, user_info, extra = checkCookie(request)
+        if status:
+            name = str(request.POST.get('name', False)).strip()
+            parentId = str(request.POST.get('parent', False)).strip()
+            if name == '':
+                return render(request, 'pages-edit-category.html', {'error' : 'Category is empty'})
+            else:
+                url_editCategory = 'https://apithaytru.herokuapp.com/category/edit/' + str(category_id)
+                data = {'category_name' : name, 'id_parent' : parentId }
+                if extra != None:
+                    token = extra
+                else:
+                    token = request.COOKIES.get('Authorization')
+                bearer = 'Bearer ' + token
+                headers = {'Authorization' : bearer}
+                data_json = json.dumps(data)
+                print(data_json)
+                r = requests.post(url_editCategory, json=data_json, headers=headers)
+                print(r.status_code)
+                result = r.json()
+                print(result)
+
+                # if(result['status'] == 4):
+                #     return render(request, 'pages-add-category.html', {'error' : 'Email existed'})
+                if(result['status'] != 7):
+                    return render(request, 'pages-edit-category.html', {'error' : 'Something went wrong, status code=' + str(result['status'])})
+                else:
+                    return render(request, 'pages-edit-category.html', {'error' : 'Success'})
+        else:
+            return extra
+
+    # return render(request, 'pages-add-category.html')
 
 def deleteCategory(request, category_id):
-    return redirect('/test/pages-category.html')
+    status, user_info, extra = checkCookie(request)
+    if status:
+        url_delPost = 'https://apithaytru.herokuapp.com/category/del/' + str(category_id)
+        if extra != None:
+            token = extra
+        else:
+            token = request.COOKIES.get('Authorization')
+        bearer = 'Bearer ' + token
+        headers = {'Authorization' : bearer}
+        r = requests.post(url_delPost, headers=headers)
+        print(r.status_code)
+        response =  redirect('/test/pages-category.html')
+        if extra != None:
+            response.set_cookie('Authorization', extra, max_age=1800)
+        return response
+    else:
+        return extra
+
+    # return redirect('/test/pages-category.html')
+
+def aprrove(request, post_id):
+    status, user_info, extra = checkCookie(request)
+    if status:
+        url_aprrove = 'http://127.0.0.1:5000/post/approve/' + str(post_id)
+        if extra != None:
+            token = extra
+        else:
+            token = request.COOKIES.get('Authorization')
+        bearer = 'Bearer ' + token
+        headers = {'Authorization' : bearer}
+        r = requests.post(url_aprrove, headers=headers)
+        print(r.status_code)
+        response =  redirect('/test/pages-post.html')
+        if extra != None:
+            response.set_cookie('Authorization', extra, max_age=1800)
+        return response
+    else:
+        return extra
 
 
 def checkCookie(request):
