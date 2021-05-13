@@ -414,7 +414,7 @@
 									{% for user in users%}
 									<tr>
 										<td>{{ user.username }}</td>
-										<td class="d-none d-xl-table-cell">{{ user.username }}</td>
+										<td class="d-none d-xl-table-cell">{{ user.email }}</td>
 										<td><span class="badge bg-success">Hoạt động</span></td>
 										{% if user.role == 1%}
 										<td class="d-none d-md-table-cell">Admin</td>

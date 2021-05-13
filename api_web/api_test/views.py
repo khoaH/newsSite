@@ -97,7 +97,7 @@ def index(request):
     return render(request, 'index.html', { 'soccer_feed' : soccer_feed, 'categories' : categories, 'lastest_post' : lastest_post, 'popular_post' : popular_post, 'preview' : preview})
 
 def search(request):
-    url = 'https://apithaytru.herokuapp.com/post'
+    url = 'https://apithaytru.herokuapp.com/post?state=status=1&sort=create_time desc'
     r = requests.get(url)
     all_post = r.json()
     keyword = request.POST.get('search', False)
@@ -267,30 +267,41 @@ def addPost(request):
         else:
             return extra
     else:
-        title = request.POST.get('title', True)
-        content = request.POST.get('content', True)
-        id_category = request.POST.get('id_category', True)
-        img = request.FILES.get('img', True)
-        imgStream = img.read()
-        imgstr = base64.b64encode(imgStream)
-        imgstr_decoded = imgstr.decode('ascii')
-        # newImgStream = base64.b64decode(imgstr)
-        # with open('newfile.txt', 'w') as destination:
-        #     destination.write(imgstr_decoded)
-        #     destination.close()
+        status, user_info, extra = checkCookie(request)
+        if status:
+            title = request.POST.get('title', True)
+            content = request.POST.get('content', True)
+            id_category = request.POST.get('id_category', True)
+            img = request.FILES.get('img', True)
+            imgStream = img.read()
+            imgstr = base64.b64encode(imgStream)
+            imgstr_decoded = imgstr.decode('ascii')
+            # newImgStream = base64.b64decode(imgstr)
+            # with open('newfile.txt', 'w') as destination:
+            #     destination.write(imgstr_decoded)
+            #     destination.close()
 
-        url_addPost = 'https://apithaytru.herokuapp.com/post/add'
-        data = {"title" : title, "content" : content, "category" : id_category, "img" : imgstr_decoded}
-        token = request.COOKIES.get('Authorization')
-        bearer = 'Bearer ' + token
-        headers = {'Authorization' : bearer}
-        data_json = json.dumps(data)
-        result = requests.post(url_addPost, json=data_json, headers=headers)
-        # print(data_json)
-        # print(type(data_json))
-        # print(type(data))
-        print(result.status_code)
-        return redirect('/test/pages-post.html')
+            url_addPost = 'https://apithaytru.herokuapp.com/post/add'
+            data = {"title" : title, "content" : content, "category" : id_category, "img" : imgstr_decoded}
+            if extra != None:
+                token = extra
+            else:
+                token = request.COOKIES.get('Authorization')
+            bearer = 'Bearer ' + token
+            headers = {'Authorization' : bearer}
+            data_json = json.dumps(data)
+            result = requests.post(url_addPost, json=data_json, headers=headers)
+            print(result.json())
+            # print(data_json)
+            # print(type(data_json))
+            # print(type(data))
+            print(result.status_code)
+            response = redirect('/test/pages-post.html')
+            if extra != None:
+                response.set_cookie('Authorization', extra, max_age=1800)
+            return response
+        else:
+            return extra
 
 def editPost(request, post_id):
     if request.method == 'GET':
@@ -337,7 +348,7 @@ def editPost(request, post_id):
             #     destination.write(imgstr_decoded)
             #     destination.close()
 
-            url_editPost = 'http://127.0.0.1:5000/post/edit/' + str(post_id)
+            url_editPost = 'https://apithaytru.herokuapp.com/post/edit/' + str(post_id)
             data = {"title" : title, "content" : content, "category" : id_category, "img" : imgstr_decoded}
             if extra != None:
                 token = extra
@@ -355,7 +366,7 @@ def editPost(request, post_id):
 def deletePost(request, post_id):
     status, user_info, extra = checkCookie(request)
     if status:
-        url_delPost = 'http://127.0.0.1:5000/post/del/' + str(post_id)
+        url_delPost = 'https://apithaytru.herokuapp.com/post/del/' + str(post_id)
         if extra != None:
             token = extra
         else:
@@ -521,7 +532,7 @@ def editUser(request, account_id):
 def deleteUser(request, account_id):
     status, user_info, extra = checkCookie(request)
     if status:
-        url_delPost = 'http://127.0.0.1:5000/account/del/' + str(account_id)
+        url_delPost = 'https://apithaytru.herokuapp.com/account/del/' + str(account_id)
         if extra != None:
             token = extra
         else:
@@ -694,7 +705,7 @@ def deleteCategory(request, category_id):
 def aprrove(request, post_id):
     status, user_info, extra = checkCookie(request)
     if status:
-        url_aprrove = 'http://127.0.0.1:5000/post/approve/' + str(post_id)
+        url_aprrove = 'https://apithaytru.herokuapp.com/post/approve/' + str(post_id)
         if extra != None:
             token = extra
         else:
