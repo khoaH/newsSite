@@ -142,26 +142,41 @@ def search(request):
     keyword = request.POST.get('search', False)
     print(keyword)
     result = []
+
+    url_category = 'https://apithaytru.herokuapp.com/category'
+    category_response = requests.get(url_category)
+    categories = category_response.json()
+
     for item in all_post:
         if re.search(keyword, item['title']):
             item['preview'] = item['content'].split('\n')[0]
             result.append(item)
-    return render(request, 'search.html', { 'result' : result})
+    return render(request, 'search.html', { 'result' : result, 'categories' : categories})
 
 def category(request, id_category):
     url = 'https://apithaytru.herokuapp.com/post?state=id_category=' + str(id_category) + ',status=1&sort=create_time,desc'
     r = requests.get(url)
     category_feed = r.json()
 
+    url_category = 'https://apithaytru.herokuapp.com/category'
+    category_response = requests.get(url_category)
+    categories = category_response.json()
+
+
     if len(category_feed) < 1:
-        return render(request, 'notFound.html')
+        return render(request, 'notFound.html', {'categories' : categories})
     else:
         for i in range(len(category_feed)):
             category_feed[i]['preview'] = category_feed[i]['content'].split('\n')[0]
-        return render(request, 'category.html', { 'result' : category_feed})
+        return render(request, 'category.html', { 'result' : category_feed, 'categories' : categories})
 
 def contact(request):
-    return render(request, 'contact.html')
+
+    url_category = 'https://apithaytru.herokuapp.com/category'
+    category_response = requests.get(url_category)
+    categories = category_response.json()
+
+    return render(request, 'contact.html', { 'categories' : categories })
 
 def logout(request):
     response = redirect('/test/login.html')
@@ -264,6 +279,13 @@ def post(request, post_id):
     data = r.json()[0]
     content = data['content'].split('\n')
     data['content'] = content
+        
+    url_category = 'https://apithaytru.herokuapp.com/category'
+    category_response = requests.get(url_category)
+    categories = category_response.json()
+
+    data['categories'] = categories
+
     return render(request, 'page.html', data)
 
 def page(request):
@@ -355,7 +377,10 @@ def editPost(request, post_id):
 
         url_editPost = 'http://127.0.0.1:5000/post/edit/' + str(post_id)
         data = {"title" : title, "content" : content, "category" : id_category, "img" : imgstr_decoded}
-        token = request.COOKIES.get('Authorization')
+        if extra != None:
+            token = extra
+        else:
+            token = request.COOKIES.get('Authorization')
         bearer = 'Bearer ' + token
         headers = {'Authorization' : bearer}
         data_json = json.dumps(data)
@@ -370,12 +395,42 @@ def deletePost(request, post_id):
     status, user_info, extra = checkCookie(request)
     if status:
         url_delPost = 'http://127.0.0.1:5000/post/del/' + str(post_id)
-        token = request.COOKIES.get('Authorization')
+        if extra != None:
+            token = extra
+        else:
+            token = request.COOKIES.get('Authorization')
         bearer = 'Bearer ' + token
         headers = {'Authorization' : bearer}
         r = requests.post(url_delPost, headers=headers)
         print(r.status_code)
         response =  redirect('/test/pages-post.html')
+        if extra != None:
+            response.set_cookie('Authorization', extra, max_age=1800)
+        return response
+    else:
+        return extra
+
+def userController(request):
+    status, user_info, extra = checkCookie(request)
+    if status:
+        print(user_info)
+        
+        result = None
+        if user_info['role'] == 1:
+            url = 'https://apithaytru.herokuapp.com/account'
+            if extra != None:
+                token = extra
+            else:
+                token = request.COOKIES.get('Authorization')
+            bearer = 'Bearer ' + token
+            headers = {'Authorization' : bearer}
+            r = requests.get(url, headers=headers)
+            result = r.json()
+        else:
+            result = []
+        # print(result)
+        response = render(request, 'pages-users.html', {'user_info' : user_info, 'users' : result})
+
         if extra != None:
             response.set_cookie('Authorization', extra, max_age=1800)
         return response

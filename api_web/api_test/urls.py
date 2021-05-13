@@ -11,6 +11,7 @@ urlpatterns = [
         path('logout.html', views.logout, name='logout'),
         path('admin.html', views.admin, name='admin'),
         path('pages-post.html', views.newsController, name='newsController'),
+        path('pages-users.html', views.userController, name='userController'),
         path('page.html', views.page, name='page'),
         path('post/<int:post_id>.html', views.post, name='post'),
         path('register.html', views.register, name='register'),

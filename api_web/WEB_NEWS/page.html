@@ -62,18 +62,21 @@
 		</div>
 		<ul class="main-menu mobile-menu">
 			<li class="active"><a href="../index.html">Home</a></li>
-			<li><a href="../category.html">Football</a></li>
-			<li><a href="../schedule.html">Basketball</a></li>
-			<li><a href="../result.html">Voleyball</a></li>
+			{% for category in categories %}
+			<li><a href="../category/{{ category.id_category }}.html">{{ category.name }}</a></li>
+			{% endfor %}
+			<!-- <li><a href="./category.html">Football</a></li>
+			<li><a href="./schedule.html">Basketball</a></li>
+			<li><a href="./result.html">Voleyball</a></li>
 			<li><a href="#">Result</a></li>
 			<li><a href="#">Other</a>
 				<ul class="dropdown">
-					<li><a href="../blog.html">Blog</a></li>
-					<li><a href="../blog-details.html">Blog Details</a></li>
+					<li><a href="./blog.html">Blog</a></li>
+					<li><a href="./blog-details.html">Blog Details</a></li>
 					<li><a href="#">Schedule</a></li>
 					<li><a href="#">Results</a></li>
 				</ul>
-			</li>
+			</li> -->
 			<li><a href="../contact.html">Contact Us</a></li>
 		</ul>
 		<div id="mobile-menu-wrap">
@@ -140,20 +143,23 @@
 						<div class="nav-menu">
 							<ul class="main-menu mobile-menu">
 								<li class="active"><a href="../index.html">Home</a></li>
-								<li><a href="../category.html">Football</a></li>
-								<li><a href="../schedule.html">Basketball</a></li>
-								<li><a href="../result.html">Voleyball</a></li>
+								{% for category in categories %}
+								<li><a href="../category/{{ category.id_category }}.html">{{ category.name }}</a></li>
+								{% endfor %}
+								<!-- <li><a href="./category.html">Football</a></li>
+								<li><a href="./schedule.html">Basketball</a></li>
+								<li><a href="./result.html">Voleyball</a></li>
 								<li><a href="#">Result</a></li>
 								<li><a href="#">Other</a>
 									<ul class="dropdown">
-										<li><a href="../blog.html">Blog</a></li>
-										<li><a href="../blog-details.html">Blog Details</a></li>
+										<li><a href="./blog.html">Blog</a></li>
+										<li><a href="./blog-details.html">Blog Details</a></li>
 										<li><a href="#">Schedule</a></li>
 										<li><a href="#">Results</a></li>
 									</ul>
-								</li>
+								</li> -->
 								<li><a href="../contact.html">Contact Us</a></li>
-							</ul>
+							</ul>							
 							<div class="nm-right search-switch">
 								<i class="fa fa-search"></i>
 							</div>
@@ -469,8 +475,9 @@
 	<div class="search-model" style="display: none;">
 		<div class="h-100 d-flex align-items-center justify-content-center">
 			<div class="search-close-switch"><i class="fa fa-close"></i></div>
-			<form class="search-model-form">
-				<input type="text" id="search-input" placeholder="Search here.....">
+			<form class="search-model-form" action="/test/search.html" method="POST">
+				{% csrf_token %}
+				<input type="text" id="search-input" placeholder="Search here....." name="search">
 			</form>
 		</div>
 	</div>

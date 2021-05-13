@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<link rel="shortcut icon" href="{% static 'img/icons/icon-48x48.png' %}" />
 
 	<title>User | Admin</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link href="./assets/css/app.css" rel="stylesheet">
+	<link href="{% static './assets/css/app.css' %}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <style>
@@ -238,7 +238,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-5.jpg"
+												<img src="{% static 'iimg/avatars/avatar-5.jpg' %}"
 													class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
 											</div>
 											<div class="col-10 ps-2">
@@ -252,7 +252,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-2.jpg"
+												<img src="{% static 'iimg/avatars/avatar-2.jpg' %}"
 													class="avatar img-fluid rounded-circle" alt="William Harris">
 											</div>
 											<div class="col-10 ps-2">
@@ -266,7 +266,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-4.jpg"
+												<img src="{% static 'iimg/avatars/avatar-4.jpg' %}"
 													class="avatar img-fluid rounded-circle" alt="Christina Mason">
 											</div>
 											<div class="col-10 ps-2">
@@ -280,7 +280,7 @@
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-												<img src="img/avatars/avatar-3.jpg"
+												<img src="{% static 'iimg/avatars/avatar-3.jpg' %}"
 													class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
 											</div>
 											<div class="col-10 ps-2">
@@ -305,7 +305,7 @@
 
 							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
 								data-bs-toggle="dropdown">
-								<img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
+								<img src="{% static 'iimg/avatars/avatar.jpg' %}" class="avatar img-fluid rounded me-1"
 									alt="Admin" /> <span class="text-dark">Admin</span>
 							</a>
 							<div class="dropdown-menu dropdown-menu-end">
@@ -409,11 +409,17 @@
 									</tr>
 								</thead>
 								<tbody>
+									{% for user in users%}
 									<tr>
-										<td>Project Apollo</td>
-										<td class="d-none d-xl-table-cell">abc.xyz@gmail.com</td>
+										<td>{{ user.username }}</td>
+										<td class="d-none d-xl-table-cell">{{ user.username }}</td>
 										<td><span class="badge bg-success">Hoạt động</span></td>
+										{% if user.role == 1%}
 										<td class="d-none d-md-table-cell">Admin</td>
+										{% endif %}
+										{% if user.role == 1%}
+										<td class="d-none d-md-table-cell">Author</td>
+										{% endif %}
 										<td>
 											<a href="#" class="settings" title="Settings" data-toggle="tooltip"><i
 													class="material-icons">&#xE8B8;</i></a>
@@ -421,7 +427,8 @@
 													class="material-icons">&#xE5C9;</i></a>
 										</td>
 									</tr>
-									<tr>
+									{% endfor %}
+									<!-- <tr>
 										<td>Project Fireball</td>
 										<td class="d-none d-xl-table-cell">abc.xyz@gmail.com</td>
 										<td><span class="badge bg-danger">Vô hiệu</span></td>
@@ -432,7 +439,7 @@
 											<a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
 													class="material-icons">&#xE5C9;</i></a>
 										</td>
-									</tr>
+									</tr> -->
 								</tbody>
 							</table>
 						</div>
@@ -470,7 +477,7 @@
 		</div>
 	</div>
 
-	<script src="./assets/js/app.js"></script>
+	<script src="{% static 'i./assets/js/app.js' %}"></script>
 
 </body>
 
