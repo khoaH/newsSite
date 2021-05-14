@@ -324,7 +324,7 @@
 								<a class="dropdown-item" href="#"><i class="align-middle me-1"
 										data-feather="help-circle"></i> Help Center</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Log out</a>
+								<a class="dropdown-item" href="./logout.html">Log out</a>
 							</div>
 						</li>
 					</ul>
@@ -338,18 +338,23 @@
 							<div class="card-header">
 
 								<h5 class="card-title mb-0">Bài viết</h5>
+								{% if user_info.role == 0%}
+								<p>Not allow</p>
+								{% endif %}	
+								{% if user_info.role == 1%}
 								<a href="./addCategory.html" class="btn btn-secondary"
 									style="float: right;margin-left: 10px;"><i class="material-icons">&#xE147;</i>
-									<span>Thêm bài viết</span></a>
-								<a href="#" class="btn btn-secondary" style="float: right;"><i
-										class="material-icons">&#xE147;</i> <span>Xem chế độ chi tiết</span></a>
+									<span>Thêm danh mục</span></a>
+								{% endif %}
+								<!-- <a href="#" class="btn btn-secondary" style="float: right;"><i
+										class="material-icons">&#xE147;</i> <span>Xem chế độ chi tiết</span></a> -->
 							</div>
 							<table class="table table-hover my-0">
 								<thead>
 									<tr>
 										<th>ID</th>
 										<th class="d-none d-xl-table-cell">Tên danh mục</th>
-										<th>Level</th>
+										<!-- <th>Level</th> -->
 										<th class="d-none d-md-table-cell">Danh mục cha</th>
 										<th></th>
 									</tr>
@@ -359,7 +364,7 @@
 									<tr>
 										<td><a href="./category/{{ category.id_category }}.html">{{ category.id_category }}</a></td>
 										<td class="d-none d-xl-table-cell">{{ category.name }}</td>
-										<td>
+										<!-- <td>
 											{% for category1 in categories %}
 												{% if category.id_parent != null and category1.id_category == category.id_parent %}
 													<span class="badge bg-success">{{ category.name }}</span>
@@ -368,7 +373,7 @@
 													<span class="badge bg-warning">Danh mục cha</span>
 													{% endif %}
 											{% endfor %}
-										</td>
+										</td> -->
 										<td class="d-none d-md-table-cell">{{ category.id_parent }}</td>
 										<td>
 											<a href="./editCategory/{{ category.id_category }}.html" class="settings"

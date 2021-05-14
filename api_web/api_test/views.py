@@ -71,26 +71,37 @@ def index(request):
     url_category = 'https://apithaytru.herokuapp.com/category'
     category_response = requests.get(url_category)
     categories = category_response.json()
+    # print(categories)
 
     url_lastest = 'https://apithaytru.herokuapp.com/post?state=status=1&limit=5&sort=create_time,desc'
     lastest_response = requests.get(url_lastest)
     lastest_post = lastest_response.json()
+    # print(lastest_post)
 
     url_popular = 'https://apithaytru.herokuapp.com/post?state=status=1&limit=8&sort=rating,desc'
     popular_response = requests.get(url_popular)
     popular_post = popular_response.json()
+    # print(popular_post)
 
     simple_category = dict(zip([item['id_category'] for item in categories], [item['name'] for item in categories]))
 
     for i in range(len(soccer_feed)):
-        soccer_feed[i]['category_name'] = simple_category[soccer_feed[i]['id_category']]
+        try:
+            soccer_feed[i]['category_name'] = simple_category[soccer_feed[i]['id_category']]
+        except:
+            soccer_feed[i]['category_name'] = 'No Category'
 
     for i in range(len(lastest_post)):
-        lastest_post[i]['category_name'] = simple_category[lastest_post[i]['id_category']]
+        try:
+            lastest_post[i]['category_name'] = simple_category[lastest_post[i]['id_category']]
+        except:
+            lastest_post[i]['category_name'] = 'No Category'
 
     for i in range(len(popular_post)):
-        popular_post[i]['category_name'] = simple_category[popular_post[i]['id_category']]
-
+        try:
+            popular_post[i]['category_name'] = simple_category[popular_post[i]['id_category']]
+        except:
+            popular_post[i]['category_name'] = 'No Category'
     preview = lastest_post[0]['content'].split('\n')[0]
 
 
