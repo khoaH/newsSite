@@ -2,7 +2,7 @@
  
 	Install requirement: 
 	cd api_web
-	pip install -r requirements.txt
+	pip install -r requirement.txt
 
 # API server: 
 	https://github.com/banhcamvinh/api
